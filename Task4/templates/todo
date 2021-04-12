@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title></title>
+    <meta content="">
+    <style>
+    body{
+      background: rgb(179, 204, 255);
+    }
+    .line{
+      text-decoration: line-through;
+    }
+    h1{
+      text-align: center;
+      color:rgb(77, 136, 255);
+    }
+    .container {
+      display: inline-block;
+      position: fixed;
+      left:37%;
+      top:35px;
+      background-color: white;
+      padding:0px 20px 20px;
+      border-radius: 10px;
+    }
+    a{
+      text-decoration: none;
+      color: black;
+    }
+    .list{
+      display: flex;
+    }
+    button{
+      height: 25px;
+      margin:3px;
+    }
+    p{
+      width: 135px;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>ToDo List</h1>
+      <form   method="POST" action="/">
+        {% csrf_token %}
+        {{form.task}}
+        <input type="submit" name="create task">
+      </form>
+      {% for task in tasks %}
+      <div class="list">
+        {% if task.complete == True%}
+        <p class="line">{{task}}</p>
+        {%else %}
+        <p>{{task}}</p>
+        {%endif%}
+        <button > <a href="{% url 'update' task.id%}">update</a></button>
+        <button ><a href="{% url 'delet' task.id%}">delet</a> </button>
+      </div>
+
+      {% endfor %}
+
+
+    </div>
+  </body>
+</html>
